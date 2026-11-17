@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunday Jahno Ezekiel — System Engineer</title>
+<meta name="description" content="Portfolio of Sunday Jahno Ezekiel, System Engineer — infrastructure, automation, power systems and software engineering. Qualifications, experience, selected work and client references.">
+<meta name="author" content="Sunday Jahno Ezekiel">
+<meta name="theme-color" content="#0b0f13">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Sunday Jahno Ezekiel — System Engineer">
+<meta property="og:description" content="System engineering across infrastructure, automation, power and software. Selected work, qualifications and references.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230b0f13'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23f5a524'%3ES%3C/text%3E%3C/svg%3E">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   1. TOKENS
+   ============================================================ */
+:root{
+  --paper:#f2f0e9;
+  --paper-2:#eae7dd;
+  --card:#fbfaf6;
+  --ink:#0d1114;
+  --ink-2:#39424b;
+  --ink-3:#6d7680;
+  --rule:#d3cdbd;
+  --rule-soft:#e2ddd0;
+
+  --ochre:#7a4e00;
+  --gold:#f5a524;
+  --gold-soft:rgba(245,165,36,.16);
+
+  --dark:#0b0f13;
+  --dark-2:#121820;
+  --dark-line:rgba(255,255,255,.10);
+
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+
+  --wrap:1180px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+ul{margin:0;padding:0;list-style:none}
+p{margin:0}
+h1,h2,h3,h4{margin:0;font-weight:400}
+[ id ]{scroll-margin-top:128px}
+::selection{background:var(--gold);color:#0b0f13}
+
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 24px}
+
+/* ============================================================
+   2. HEADER  (identical structure to the personal site)
+   ============================================================ */
+.site-head{
+  position:sticky;top:0;z-index:80;background:rgba(7,12,22,.94);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--dark-line);
+}
+.topbar{border-bottom:1px solid rgba(255,255,255,.05)}
+.topbar-row{display:flex;align-items:center;justify-content:space-between;gap:12px;height:38px}
+.clock{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#b9c6d8;min-width:0}
+.clock i{color:var(--gold);font-size:13px;flex-shrink:0}
+.clock time{font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:.02em;flex-shrink:0}
+.clock .sep{color:#3a4a60;flex-shrink:0}
+.clock .dtext{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+
+.cal-wrap{position:relative;flex-shrink:0}
+.cal-btn{
+  width:32px;height:32px;border-radius:9px;border:1px solid var(--dark-line);
+  background:rgba(255,255,255,.03);color:#b9c6d8;display:grid;place-items:center;
+  cursor:pointer;transition:.2s;padding:0;font-size:14px;
+}
+.cal-btn:hover{color:var(--gold);border-color:rgba(245,165,36,.55);background:rgba(245,165,36,.08)}
+.cal-panel{
+  position:absolute;right:0;top:calc(100% + 10px);width:296px;max-width:calc(100vw - 32px);
+  background:var(--dark-2);border:1px solid var(--dark-line);border-radius:14px;
+  padding:14px;box-shadow:0 24px 60px -24px rgba(0,0,0,.9);
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .18s,transform .18s,visibility .18s;z-index:95;
+}
+.cal-panel.open{opacity:1;visibility:visible;transform:none}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-head span{font-family:var(--mono);font-weight:700;font-size:13px;color:#fff}
+.cal-head button{
+  width:28px;height:28px;border-radius:8px;border:1px solid var(--dark-line);
+  background:transparent;color:#b9c6d8;cursor:pointer;display:grid;place-items:center;
+  padding:0;transition:.2s;font-size:12px;
+}
+.cal-head button:hover{color:var(--gold);border-color:rgba(245,165,36,.5)}
+.cal-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
+.cal-dow span{text-align:center;font-size:10.5px;font-weight:600;color:#63758e;text-transform:uppercase;letter-spacing:.06em}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-days button{
+  aspect-ratio:1;border:0;background:transparent;color:#e6ecf5;border-radius:8px;
+  font-size:12.5px;cursor:pointer;padding:0;transition:.15s;font-variant-numeric:tabular-nums;
+}
+.cal-days button:hover{background:rgba(255,255,255,.09)}
+.cal-days button.mute{color:#3f4f66}
+.cal-days button.today{background:var(--gold);color:#0b1220;font-weight:700}
+.cal-days button.picked{outline:1px solid rgba(245,165,36,.7);color:#ffd07a}
+.cal-foot{margin-top:10px;padding-top:10px;border-top:1px solid var(--dark-line);text-align:center}
+.cal-foot button{background:transparent;border:0;color:var(--gold);cursor:pointer;font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:7px}
+.cal-foot button:hover{background:rgba(245,165,36,.1)}
+
+.navi{position:relative}
+.navi-row{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;min-width:0}
+.brand-mark{
+  width:42px;height:42px;flex-shrink:0;border-radius:12px;
+  background:linear-gradient(135deg,var(--gold),#d98a0b);color:#0b1220;
+  display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:19px;
+}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.brand-text strong{font-family:var(--sans);font-weight:600;font-size:15px;color:#f4f7fb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-text small{font-size:10.5px;color:#7d8ea6;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.menu{display:flex;align-items:center;gap:2px}
+.menu a{
+  display:block;padding:9px 14px;border-radius:8px;color:#a9b8cc;
+  font-size:14px;font-weight:500;transition:.18s;white-space:nowrap;
+}
+.menu a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.menu a.is-active{color:var(--gold);background:rgba(245,165,36,.11)}
+.nav-cta a{background:linear-gradient(135deg,var(--gold),#d98a0b);color:#0b1220 !important;font-weight:700}
+.nav-cta a:hover{filter:brightness(1.08)}
+.burger{
+  display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--dark-line);
+  background:rgba(255,255,255,.03);color:#e6ecf5;cursor:pointer;place-items:center;
+  padding:0;font-size:19px;flex-shrink:0;
+}
+.burger:hover{color:var(--gold);border-color:rgba(245,165,36,.5)}
+
+@media (max-width:980px){
+  .burger{display:grid}
+  .brand-text small{display:none}
+  .menu{
+    position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;
+    gap:2px;background:#070c16;border-bottom:1px solid var(--dark-line);
+    padding:10px 16px 16px;box-shadow:0 26px 44px -26px rgba(0,0,0,.95);
+    transform:translateY(-8px);opacity:0;pointer-events:none;
+    transition:opacity .2s,transform .2s;max-height:75vh;overflow:auto;
+  }
+  .menu.open{transform:none;opacity:1;pointer-events:auto}
+  .menu a{padding:12px 14px;font-size:15px}
+  .nav-cta{margin-top:6px}
+  .nav-cta a{text-align:center}
+}
+
+/* ============================================================
+   3. PAGE SHELL / TYPOGRAPHY
+   ============================================================ */
+.page{
+  background:
+    radial-gradient(circle at 1px 1px, rgba(13,17,20,.055) 1px, transparent 0) 0 0/26px 26px,
+    var(--paper);
+}
+
+.mono{
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+}
+.rule{height:1px;background:var(--rule);border:0;margin:0}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:13px 22px;font-size:13.5px;font-weight:600;letter-spacing:.01em;
+  border:1px solid var(--ink);border-radius:2px;cursor:pointer;
+  transition:.2s var(--ease);line-height:1.2;text-align:center;
+}
+.btn-solid{background:var(--ink);color:var(--paper)}
+.btn-solid:hover{background:#000;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+.btn-ghost:hover{border-color:var(--ink);background:rgba(13,17,20,.03)}
+.btn-gold{background:var(--gold);color:#141005;border-color:var(--gold)}
+.btn-gold:hover{filter:brightness(1.06);transform:translateY(-1px)}
+
+/* ============================================================
+   4. HERO
+   ============================================================ */
+.hero{padding:56px 0 0}
+.hero-top{
+  display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;
+  padding-bottom:18px;border-bottom:1px solid var(--rule);
+}
+.hero-top .mono{color:var(--ochre)}
+.status{display:inline-flex;align-items:center;gap:8px}
+.status i{font-size:7px;color:#2f9e44;animation:blip 2.4s ease-in-out infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.25}}
+
+.hero-grid{
+  display:grid;grid-template-columns:1fr;gap:44px;
+  padding:44px 0 56px;
+}
+.hero-name{
+  font-family:var(--serif);
+  font-size:clamp(46px,9vw,104px);
+  line-height:.92;
+  letter-spacing:-.025em;
+  margin-top:20px;
+}
+.hero-name em{font-style:italic;color:var(--ochre)}
+.hero-role{
+  margin-top:22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.hero-role .bar{width:34px;height:2px;background:var(--gold)}
+.hero-role span{
+  font-family:var(--mono);font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:700;color:var(--ink);
+}
+.hero-lede{
+  margin-top:22px;max-width:56ch;font-size:17px;line-height:1.7;color:var(--ink-2);
+}
+.hero-lede strong{font-weight:600;color:var(--ink)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.hero-meta{
+  display:grid;grid-template-columns:1fr;gap:0;margin-top:34px;
+  border-top:1px solid var(--rule);
+}
+.hero-meta div{
+  display:flex;gap:12px;align-items:baseline;
+  padding:11px 0;border-bottom:1px solid var(--rule-soft);
+}
+.hero-meta dt{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);min-width:96px;flex-shrink:0;
+}
+.hero-meta dd{margin:0;font-size:13.5px;font-weight:500;color:var(--ink)}
+
+/* profile card */
+.spec-card{
+  background:var(--dark);color:#e9eef5;border:1px solid #1e2732;
+  border-radius:3px;padding:26px;position:relative;overflow:hidden;
+}
+.spec-card::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(160deg,#000,transparent 78%);
+  mask-image:linear-gradient(160deg,#000,transparent 78%);
+}
+.spec-card > *{position:relative;z-index:1}
+.spec-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding-bottom:14px;border-bottom:1px solid var(--dark-line);
+}
+.spec-head .mono{color:#7d8ea6}
+.spec-head i{color:var(--gold);font-size:13px}
+.spec-rows{display:grid;gap:0;margin-top:6px}
+.spec-row{
+  display:flex;justify-content:space-between;gap:16px;
+  padding:13px 0;border-bottom:1px solid rgba(255,255,255,.07);
+}
+.spec-row:last-child{border-bottom:0}
+.spec-row dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#7d8ea6}
+.spec-row dd{margin:0;font-size:13.5px;font-weight:500;text-align:right;color:#eef3f9}
+.spec-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.spec-tags span{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(245,165,36,.32);color:#ffd07a;
+  padding:4px 9px;border-radius:2px;background:rgba(245,165,36,.07);
+}
+
+@media (min-width:980px){
+  .hero-grid{grid-template-columns:1.35fr .9fr;gap:64px;align-items:start;padding:52px 0 64px}
+  .hero-meta{grid-template-columns:1fr 1fr;column-gap:34px;border-bottom:1px solid var(--rule-soft)}
+  .hero-meta div:nth-last-child(-n+1){border-bottom:0}
+}
+
+/* ============================================================
+   5. METRIC STRIP (bento)
+   ============================================================ */
+.metrics{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  background:var(--rule);border:1px solid var(--rule);
+  margin-bottom:0;
+}
+.metric{
+  background:var(--card);padding:26px 22px;
+  display:flex;flex-direction:column;gap:6px;
+}
+.metric b{
+  font-family:var(--serif);font-size:clamp(32px,4.4vw,46px);line-height:1;
+  font-weight:400;letter-spacing:-.02em;
+}
+.metric b sup{font-size:.42em;color:var(--ochre);margin-left:2px;top:-.9em}
+.metric span{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);line-height:1.5;
+}
+.metric.accent{background:var(--dark);color:#fff}
+.metric.accent b{color:var(--gold)}
+.metric.accent span{color:#8fa0b7}
+
+@media (min-width:720px){.metrics{grid-template-columns:repeat(4,1fr)}}
+
+/* ============================================================
+   6. SECTION HEADS
+   ============================================================ */
+.section{padding:82px 0;border-top:1px solid var(--rule)}
+.section:first-of-type{border-top:0}
+.sec-head{
+  display:grid;grid-template-columns:1fr;gap:12px;
+  padding-bottom:26px;border-bottom:1px solid var(--rule);margin-bottom:40px;
+}
+.sec-index{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ochre);font-weight:700;
+}
+.sec-title{
+  font-family:var(--serif);font-size:clamp(30px,4.6vw,50px);
+  line-height:1.02;letter-spacing:-.02em;
+}
+.sec-sub{font-size:14.5px;color:var(--ink-3);max-width:62ch;line-height:1.7}
+@media (min-width:900px){
+  .sec-head{grid-template-columns:120px 1fr;column-gap:34px;align-items:end}
+  .sec-index{grid-column:1;grid-row:1;align-self:start;padding-top:8px}
+  .sec-title{grid-column:2;grid-row:1}
+  .sec-sub{grid-column:2;grid-row:2}
+}
+
+/* ============================================================
+   7. EXPERTISE
+   ============================================================ */
+.exp-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.exp{
+  background:var(--card);padding:28px 24px;transition:.22s var(--ease);
+}
+.exp:hover{background:#fff}
+.exp-i{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  color:var(--ochre);font-weight:700;
+}
+.exp h3{
+  font-family:var(--sans);font-size:17px;font-weight:600;line-height:1.35;
+  margin-top:12px;letter-spacing:-.01em;
+}
+.exp p{margin-top:10px;font-size:13.8px;color:var(--ink-2);line-height:1.7}
+.exp ul{margin-top:12px;display:grid;gap:6px}
+.exp li{
+  font-size:13px;color:var(--ink-3);padding-left:15px;position:relative;line-height:1.6;
+}
+.exp li::before{
+  content:'';position:absolute;left:0;top:.62em;
+  width:5px;height:5px;background:var(--gold);border-radius:50%;
+}
+@media (min-width:640px){.exp-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.exp-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* ============================================================
+   8. STACK
+   ============================================================ */
+.stack{display:grid;grid-template-columns:1fr;gap:26px}
+.stack-row{
+  display:grid;grid-template-columns:1fr;gap:12px;
+  padding-bottom:22px;border-bottom:1px solid var(--rule-soft);
+}
+.stack-row:last-child{border-bottom:0;padding-bottom:0}
+.stack-label{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:700;
+}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid var(--rule);background:var(--card);
+  padding:6px 11px;border-radius:2px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--ink);
+  transition:.18s;
+}
+.chip:hover{border-color:var(--ink);background:#fff}
+.chip i{font-size:11px;color:var(--ochre)}
+@media (min-width:820px){
+  .stack-row{grid-template-columns:200px 1fr;gap:24px;align-items:start}
+}
+
+/* ============================================================
+   9. EXPERIENCE
+   ============================================================ */
+.xp{display:grid;gap:0;border-top:1px solid var(--rule)}
+.xp-item{
+  display:grid;grid-template-columns:1fr;gap:14px;
+  padding:32px 0;border-bottom:1px solid var(--rule);
+}
+.xp-when{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--ochre);font-weight:700}
+.xp-org{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.xp-role{font-family:var(--sans);font-size:21px;font-weight:600;line-height:1.3;letter-spacing:-.015em}
+.xp-loc{font-size:12.5px;color:var(--ink-3);margin-top:6px}
+.xp-list{margin-top:16px;display:grid;gap:9px}
+.xp-list li{
+  position:relative;padding-left:20px;font-size:14.2px;line-height:1.7;color:var(--ink-2);
+}
+.xp-list li::before{
+  content:'—';position:absolute;left:0;top:0;color:var(--gold);font-weight:700;
+}
+.xp-list strong{font-weight:600;color:var(--ink)}
+@media (min-width:880px){
+  .xp-item{grid-template-columns:220px 1fr;gap:40px;padding:36px 0}
+  .xp-main{max-width:72ch}
+}
+
+/* ============================================================
+   10. CASE STUDIES
+   ============================================================ */
+.cases{display:grid;grid-template-columns:1fr;gap:22px}
+.case{
+  background:var(--card);border:1px solid var(--rule);
+  padding:28px 26px;border-radius:3px;
+  display:flex;flex-direction:column;transition:.22s var(--ease);
+}
+.case:hover{border-color:var(--ink);transform:translateY(-2px)}
+.case-i{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ochre);font-weight:700;
+}
+.case-i span:last-child{color:var(--ink-3)}
+.case h3{
+  font-family:var(--serif);font-size:25px;line-height:1.12;margin-top:14px;
+  letter-spacing:-.015em;
+}
+.case-block{
+  display:grid;grid-template-columns:58px 1fr;gap:12px;
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--rule-soft);
+}
+.case-block:first-of-type{margin-top:22px}
+.case-block dt{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:700;padding-top:2px;
+}
+.case-block dd{margin:0;font-size:13.6px;line-height:1.7;color:var(--ink-2)}
+.case-foot{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;padding-top:16px;
+  border-top:1px solid var(--rule-soft);
+}
+@media (min-width:760px){.cases{grid-template-columns:repeat(3,1fr)}}
+
+/* ============================================================
+   11. CREDENTIALS
+   ============================================================ */
+.cred-grid{display:grid;grid-template-columns:1fr;gap:44px}
+.edu{display:grid;gap:0;border-top:1px solid var(--rule)}
+.edu-item{
+  display:grid;grid-template-columns:78px 1fr;gap:16px;
+  padding:20px 0;border-bottom:1px solid var(--rule-soft);align-items:start;
+}
+.edu-yr{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--ochre);letter-spacing:.04em;padding-top:2px}
+.edu-item h3{font-family:var(--sans);font-size:15.5px;font-weight:600;line-height:1.4}
+.edu-item p{font-size:13.2px;color:var(--ink-3);margin-top:4px;line-height:1.6}
+.edu-item .tag{
+  display:inline-block;margin-top:8px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ochre);
+  border:1px solid rgba(122,78,0,.28);background:rgba(245,165,36,.1);
+  padding:3px 8px;border-radius:2px;
+}
+.certs{display:grid;gap:12px}
+.cert{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:16px 18px;border:1px solid var(--rule);background:var(--card);border-radius:2px;
+  transition:.2s;
+}
+.cert:hover{border-color:var(--ochre)}
+.cert i{color:var(--ochre);font-size:16px;margin-top:2px;flex-shrink:0}
+.cert h4{font-size:14px;font-weight:600;line-height:1.45}
+.cert p{font-size:12.5px;color:var(--ink-3);margin-top:3px}
+@media (min-width:900px){.cred-grid{grid-template-columns:1.15fr .85fr;gap:64px}}
+
+/* ============================================================
+   12. TESTIMONIALS
+   ============================================================ */
+.tst-grid{display:grid;grid-template-columns:1fr;gap:22px}
+.tst{
+  background:var(--dark);color:#e9eef5;padding:30px 26px;border-radius:3px;
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+  border:1px solid #1c2530;
+}
+.tst::before{
+  content:'\201C';position:absolute;top:-18px;right:14px;
+  font-family:var(--serif);font-size:140px;line-height:1;
+  color:rgba(245,165,36,.14);pointer-events:none;
+}
+.tst-mark{color:var(--gold);font-size:12px;letter-spacing:.3em}
+.tst blockquote{
+  margin:16px 0 0;font-family:var(--serif);font-size:20px;line-height:1.5;
+  letter-spacing:-.005em;color:#f2f6fa;flex:1;position:relative;z-index:1;
+}
+.tst-who{
+  display:flex;align-items:center;gap:12px;margin-top:24px;padding-top:18px;
+  border-top:1px solid var(--dark-line);position:relative;z-index:1;
+}
+.avatar{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:700;
+  background:rgba(245,165,36,.14);color:#ffd07a;border:1px solid rgba(245,165,36,.3);
+}
+.tst-who h4{font-size:13.5px;font-weight:600;color:#fff;line-height:1.35}
+.tst-who p{font-size:11.5px;color:#8fa0b7;margin-top:2px;line-height:1.45}
+@media (min-width:860px){.tst-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* ============================================================
+   13. CONTACT
+   ============================================================ */
+.contact{
+  background:var(--dark);color:#e9eef5;border-radius:3px;
+  padding:44px 32px;display:grid;gap:34px;position:relative;overflow:hidden;
+}
+.contact::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(circle at 85% 15%,#000,transparent 70%);
+  mask-image:radial-gradient(circle at 85% 15%,#000,transparent 70%);
+}
+.contact > *{position:relative;z-index:1}
+.contact .mono{color:#8fa0b7}
+.contact h2{
+  font-family:var(--serif);font-size:clamp(30px,4.6vw,48px);
+  line-height:1.04;margin-top:14px;letter-spacing:-.02em;color:#fff;
+}
+.contact p.lede{margin-top:16px;color:#a9b8cc;font-size:15px;max-width:52ch;line-height:1.75}
+.contact-links{display:grid;grid-template-columns:1fr;gap:1px;background:var(--dark-line);border:1px solid var(--dark-line)}
+.cl{
+  display:flex;align-items:center;gap:14px;
+  background:var(--dark);padding:16px 18px;transition:.2s;
+}
+.cl:hover{background:#151c25}
+.cl i{color:var(--gold);font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.cl span{display:block}
+.cl small{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#7d8ea6;display:block}
+.cl strong{font-size:13.5px;font-weight:500;color:#eef3f9;word-break:break-word}
+.cl .go{margin-left:auto;color:#5d6d84;font-size:12px;flex-shrink:0}
+.cl:hover .go{color:var(--gold)}
+@media (min-width:760px){
+  .contact{padding:54px 48px;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+  .contact-links{grid-template-columns:1fr}
+}
+
+/* ============================================================
+   14. FOOTER  (identical structure to the personal site)
+   ============================================================ */
+.site-foot{background:var(--dark);border-top:1px solid var(--dark-line);color:#e6ecf5}
+.foot-grid{display:grid;gap:38px;padding:56px 0 40px;grid-template-columns:1fr}
+.foot-grid h4{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.foot-list li{margin-bottom:10px;font-size:13.5px;color:#93a3b8}
+.foot-list a{color:#93a3b8;transition:.18s}
+.foot-list a:hover{color:var(--gold);padding-left:3px}
+.foot-list i{width:18px;display:inline-block;color:var(--gold);margin-right:6px}
+.foot-brand{display:flex;align-items:center;gap:11px}
+.foot-brand .brand-text strong{color:#f4f7fb}
+.foot-brand .brand-text small{color:#7d8ea6}
+.foot-note{font-size:13px;color:#93a3b8;margin-top:16px;max-width:330px;line-height:1.75}
+.socials{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.soc{
+  width:40px;height:40px;border-radius:9px;display:grid;place-items:center;
+  background:rgba(255,255,255,.04);border:1px solid var(--dark-line);
+  color:#b9c6d8;font-size:16px;transition:.22s;
+}
+.soc:hover{background:linear-gradient(135deg,var(--gold),#d98a0b);color:#0b1220;border-color:transparent;transform:translateY(-3px)}
+.foot-bottom{
+  border-top:1px solid var(--dark-line);padding:22px 0;
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+  font-size:12.5px;color:#7d8ea6;
+}
+@media (min-width:640px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media (min-width:1024px){.foot-grid{grid-template-columns:1.5fr 1fr 1fr 1.2fr}}
+
+/* ============================================================
+   15. TOAST / BACK-TO-TOP
+   ============================================================ */
+.back-top{
+  position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:10px;
+  border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+  font-size:17px;cursor:pointer;display:grid;place-items:center;padding:0;z-index:70;
+  opacity:0;visibility:hidden;transform:translateY(12px);transition:.28s;
+}
+.back-top.on{opacity:1;visibility:visible;transform:none}
+.back-top:hover{background:#000}
+
+/* ============================================================
+   16. RESPONSIVE
+   ============================================================ */
+@media (max-width:1023px){
+  .section{padding:64px 0}
+  .hero{padding:40px 0 0}
+}
+@media (max-width:767px){
+  .wrap{padding:0 18px}
+  .section{padding:52px 0}
+  .hero-grid{padding:32px 0 40px;gap:32px}
+  .hero-name{font-size:clamp(38px,11vw,62px)}
+  .hero-lede{font-size:15.5px}
+  .sec-title{font-size:clamp(27px,7vw,36px)}
+  .sec-sub{font-size:13.8px}
+  .metric{padding:20px 16px}
+  .metric span{font-size:9.5px;letter-spacing:.1em}
+  .exp{padding:22px 18px}
+  .exp h3{font-size:16px}
+  .case{padding:22px 18px}
+  .case h3{font-size:22px}
+  .tst{padding:24px 20px}
+  .tst blockquote{font-size:18px}
+  .contact{padding:34px 22px}
+  .xp-role{font-size:18.5px}
+  .xp-list li{font-size:13.5px}
+  .foot-grid{padding:44px 0 32px;gap:30px}
+  .foot-bottom{font-size:12px;flex-direction:column;align-items:flex-start;gap:8px}
+  .back-top{right:14px;bottom:14px;width:42px;height:42px;font-size:15px}
+  [id]{scroll-margin-top:118px}
+  .hero-meta div{flex-direction:column;gap:4px;align-items:flex-start;padding:10px 0}
+  .hero-meta dt{min-width:0}
+}
+@media (max-width:420px){
+  .wrap{padding:0 15px}
+  .hero-name{font-size:clamp(34px,12vw,46px)}
+  .hero-actions .btn{width:100%}
+  .spec-card{padding:20px}
+  .metric{padding:16px 13px}
+  .metric b{font-size:30px}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .tst blockquote{font-size:17px}
+  .contact h2{font-size:clamp(26px,8vw,34px)}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+
+/* ============================================================
+   17. PRINT (Download CV)
+   ============================================================ */
+@media print{
+  @page{margin:14mm}
+  body{background:#fff;color:#000;font-size:11pt}
+  .site-head,.site-foot,.back-top,.hero-actions,.status,.tst,.contact,.case-foot,
+  .chips .chip i,.sec-sub{display:none !important}
+  .page{background:#fff}
+  .wrap{max-width:100%;padding:0}
+  .hero{padding:0}
+  .hero-grid{padding:0 0 12pt}
+  .spec-card{background:#fff;color:#000;border:1px solid #999}
+  .spec-card::after{display:none}
+  .spec-head,.spec-row{border-color:#ccc}
+  .spec-row dd,.spec-head .mono,.spec-row dt{color:#000}
+  .spec-tags span{color:#000;border-color:#999;background:none}
+  .section{padding:14pt 0;border-top:1px solid #ccc;page-break-inside:avoid}
+  .sec-head{margin-bottom:12pt;padding-bottom:8pt}
+  .metrics{border-color:#999;background:#999}
+  .metric{background:#fff;padding:10pt}
+  .metric.accent{background:#fff;color:#000}
+  .metric.accent b,.metric.accent span{color:#000}
+  .exp,.case,.cert{background:#fff;border-color:#ccc}
+  .cases,.exp-grid,.tst-grid{display:block}
+  .case,.exp{margin-bottom:10pt;page-break-inside:avoid}
+  .xp-item{padding:10pt 0;grid-template-columns:150px 1fr}
+  .tst{page-break-before:always}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-head">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="topbar-row">
+        <div class="clock">
+          <i class="bi bi-clock-history"></i>
+          <time id="liveTime">--:--:--</time>
+          <span class="sep">|</span>
+          <span class="dtext" id="liveDate">Loading…</span>
+        </div>
+        <div class="cal-wrap" id="calWrap">
+          <button class="cal-btn" id="calBtn" type="button" aria-label="Show calendar" aria-expanded="false">
+            <i class="bi bi-calendar3"></i>
+          </button>
+          <div class="cal-panel" id="calPanel" role="dialog" aria-label="Monthly calendar">
+            <div class="cal-head">
+              <button type="button" id="calPrev" aria-label="Previous month"><i class="bi bi-chevron-left"></i></button>
+              <span id="calTitle">—</span>
+              <button type="button" id="calNext" aria-label="Next month"><i class="bi bi-chevron-right"></i></button>
+            </div>
+            <div class="cal-dow"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+            <div class="cal-days" id="calDays"></div>
+            <div class="cal-foot"><button type="button" id="calToday">Back to today</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navi">
+    <div class="wrap">
+      <div class="navi-row">
+        <a href="#overview" class="brand">
+          <span class="brand-mark">S</span>
+          <span class="brand-text">
+            <strong>Sunday Jahno Ezekiel</strong>
+            <small>System Engineer</small>
+          </span>
+        </a>
+
+        <ul class="menu" id="menu">
+          <li><a href="#overview"    data-nav="overview">Overview</a></li>
+          <li><a href="#expertise"   data-nav="expertise">Expertise</a></li>
+          <li><a href="#experience"  data-nav="experience">Experience</a></li>
+          <li><a href="#work"        data-nav="work">Selected Work</a></li>
+          <li><a href="#credentials" data-nav="credentials">Credentials</a></li>
+          <li><a href="#references"  data-nav="references">References</a></li>
+          <li class="nav-cta"><a href="#contact"><i class="bi bi-send"></i> Contact</a></li>
+        </ul>
+
+        <button class="burger" id="burger" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="menu">
+          <i class="bi bi-list"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="overview">
+    <div class="wrap">
+
+      <div class="hero-top">
+        <span class="mono">Portfolio / System Engineering / 2026</span>
+        <span class="mono status"><i class="bi bi-circle-fill"></i> Available for contract &amp; full-time</span>
+      </div>
+
+      <div class="hero-grid">
+
+        <div>
+          <!-- <p class="mono" style="color:var(--ochre)">Curriculum Vitae — Technical Portfolio</p> -->
+
+          <h1 class="hero-name">
+            Sunday<br>
+            Jahno <em>Ezekiel</em>
+          </h1>
+
+          <div class="hero-role">
+            <span class="bar"></span>
+            <span>System Engineer</span>
+          </div>
+
+          <p class="hero-lede">
+            I design, build and operate the systems organisations depend on —
+            <strong>infrastructure, automation, power and software</strong> — engineered as one coordinated
+            whole rather than four separate trades. My work is measured in uptime, fault-finding time,
+            delivery dates and cost per installation.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#experience" class="btn btn-solid"><i class="bi bi-arrow-down-right"></i> View Experience</a>
+            <button type="button" class="btn btn-ghost" id="printCv"><i class="bi bi-download"></i> Download CV</button>
+            <a href="#contact" class="btn btn-ghost"><i class="bi bi-envelope"></i> Contact</a>
+          </div>
+
+          <dl class="hero-meta">
+            <div>
+              <dt>Base</dt>
+              <dd>Ikorodu LGA, Lagos State, Nigeria</dd>
+            </div>
+            <div>
+              <dt>Coverage</dt>
+              <dd>Nationwide on-site · Remote worldwide</dd>
+            </div>
+            <div>
+              <dt>Discipline</dt>
+              <dd>Systems, infrastructure &amp; automation</dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>English · Nigerian Pidgin · Efik</dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside class="spec-card" aria-label="Profile summary">
+          <div class="spec-head">
+            <span class="mono">Profile / Spec Sheet</span>
+            <i class="bi bi-cpu"></i>
+          </div>
+          <dl class="spec-rows">
+            <div class="spec-row"><dt>Role</dt><dd>System Engineer</dd></div>
+            <div class="spec-row"><dt>Focus</dt><dd>Infrastructure · Automation · Power · Software</dd></div>
+            <div class="spec-row"><dt>Experience</dt><dd>6+ years, hands-on &amp; leadership</dd></div>
+            <div class="spec-row"><dt>Education</dt><dd>BSc Mathematics &amp; Computer Science</dd></div>
+            <div class="spec-row"><dt>Postgraduate</dt><dd>MSc Artificial Intelligence &amp; Robotics</dd></div>
+            <div class="spec-row"><dt>Engagements</dt><dd>Contract · Full-time · Consultancy</dd></div>
+          </dl>
+          <div class="spec-tags">
+            <span>Systems</span><span>Automation</span><span>Power</span><span>Security</span>
+          </div>
+        </aside>
+
+      </div>
+
+      <!-- METRICS -->
+      <div class="metrics" role="list">
+        <div class="metric" role="listitem">
+          <b>40<sup>+</sup></b>
+          <span>Systems &amp; installations delivered</span>
+        </div>
+        <div class="metric" role="listitem">
+          <b>150<sup>+</sup></b>
+          <span>Technicians &amp; learners trained</span>
+        </div>
+        <div class="metric accent" role="listitem">
+          <b>99.9<sup>%</sup></b>
+          <span>Target infrastructure uptime</span>
+        </div>
+        <div class="metric" role="listitem">
+          <b>5</b>
+          <span>Concurrent technical leadership roles</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EXPERTISE
+       ============================================================ -->
+  <section class="section" id="expertise">
+    <div class="wrap">
+
+      <div class="sec-head">
+        <span class="sec-index">01 / Expertise</span>
+        <h2 class="sec-title">Core engineering capability</h2>
+        <p class="sec-sub">Six disciplines I operate in professionally — each applied to production work, not coursework.</p>
+      </div>
+
+      <div class="exp-grid">
+
+        <article class="exp">
+          <span class="exp-i">01</span>
+          <h3>Systems &amp; Infrastructure</h3>
+          <p>Designing and maintaining the compute, network and storage layer that everything else runs on.</p>
+          <ul>
+            <li>Windows Server &amp; Linux administration</li>
+            <li>LAN / VLAN design and structured cabling</li>
+            <li>Backup, recovery testing &amp; continuity planning</li>
+            <li>Virtualisation and managed hosting migration</li>
+          </ul>
+        </article>
+
+        <article class="exp">
+          <span class="exp-i">02</span>
+          <h3>Automation &amp; Control</h3>
+          <p>Replacing manual operations with reliable, observable control systems.</p>
+          <ul>
+            <li>PLC programming and ladder logic</li>
+            <li>Microcontroller-based control and sensing</li>
+            <li>Motor control, overload and phase-failure protection</li>
+            <li>Process monitoring and alarm integration</li>
+          </ul>
+        </article>
+
+        <article class="exp">
+          <span class="exp-i">03</span>
+          <h3>Power Systems</h3>
+          <p>Electrical design and installation engineered against actual load, not assumption.</p>
+          <ul>
+            <li>Complete and half-conduit installation</li>
+            <li>Industrial and three-phase wiring</li>
+            <li>Solar PV, inverter and battery sizing</li>
+            <li>AC/DC motor rewinding and equipment repair</li>
+          </ul>
+        </article>
+
+        <article class="exp">
+          <span class="exp-i">04</span>
+          <h3>Software Engineering</h3>
+          <p>Application delivery that supports the systems it sits on — internally and for clients.</p>
+          <ul>
+            <li>Full-stack web application development</li>
+            <li>REST API design and database modelling</li>
+            <li>Mobile and cross-platform builds</li>
+            <li>Version control, testing and deployment</li>
+          </ul>
+        </article>
+
+        <article class="exp">
+          <span class="exp-i">05</span>
+          <h3>Security &amp; Assurance</h3>
+          <p>Finding weaknesses before they become incidents, and documenting the fix.</p>
+          <ul>
+            <li>Penetration testing within agreed scope</li>
+            <li>Vulnerability assessment and reporting</li>
+            <li>Access control, hardening and patch policy</li>
+            <li>Staff security awareness and procedure</li>
+          </ul>
+        </article>
+
+        <article class="exp">
+          <span class="exp-i">06</span>
+          <h3>Technical Design &amp; Documentation</h3>
+          <p>The drawing, specification and handover pack that makes a system maintainable by others.</p>
+          <ul>
+            <li>MEP coordination and clash checking</li>
+            <li>Technical drawing and as-built records</li>
+            <li>Load audits and equipment schedules</li>
+            <li>O&amp;M manuals and maintenance plans</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <!-- STACK -->
+      <div style="margin-top:56px">
+        <p class="mono" style="margin-bottom:22px;color:var(--ochre)">Technical Stack</p>
+
+        <div class="stack">
+
+          <div class="stack-row">
+            <span class="stack-label">Languages</span>
+            <div class="chips">
+              <span class="chip"><i class="bi bi-braces"></i>Python</span>
+              <span class="chip"><i class="bi bi-braces"></i>JavaScript</span>
+              <span class="chip"><i class="bi bi-cup-hot"></i>Java</span>
+              <span class="chip"><i class="bi bi-braces"></i>C</span>
+              <span class="chip"><i class="bi bi-braces"></i>C#</span>
+              <span class="chip"><i class="bi bi-braces"></i>C++</span>
+              <span class="chip"><i class="bi bi-filetype-php"></i>PHP</span>
+              <span class="chip"><i class="bi bi-graph-up"></i>MATLAB</span>
+              <span class="chip"><i class="bi bi-database"></i>SQL</span>
+            </div>
+          </div>
+
+          <div class="stack-row">
+            <span class="stack-label">Web &amp; Application</span>
+            <div class="chips">
+              <span class="chip"><i class="bi bi-filetype-html"></i>HTML / CSS</span>
+              <span class="chip"><i class="bi bi-window"></i>React</span>
+              <span class="chip"><i class="bi bi-hdd-network"></i>Node.js</span>
+              <span class="chip"><i class="bi bi-diagram-2"></i>REST APIs</span>
+              <span class="chip"><i class="bi bi-database"></i>MySQL</span>
+              <span class="chip"><i class="bi bi-git"></i>Git</span>
+            </div>
+          </div>
+
+          <div class="stack-row">
+            <span class="stack-label">Systems &amp; Infrastructure</span>
+            <div class="chips">
+              <span class="chip"><i class="bi bi-windows"></i>Windows Server</span>
+              <span class="chip"><i class="bi bi-terminal"></i>Linux</span>
+              <span class="chip"><i class="bi bi-router"></i>LAN / VLAN</span>
+              <span class="chip"><i class="bi bi-shield-lock"></i>Firewall &amp; ACLs</span>
+              <span class="chip"><i class="bi bi-cloud-arrow-up"></i>Backup &amp; Recovery</span>
+              <span class="chip"><i class="bi bi-boxes"></i>Virtualisation</span>
+            </div>
+          </div>
+
+          <div class="stack-row">
+            <span class="stack-label">Automation &amp; Hardware</span>
+            <div class="chips">
+              <span class="chip"><i class="bi bi-cpu"></i>PLC / Ladder Logic</span>
+              <span class="chip"><i class="bi bi-motherboard"></i>Microcontrollers</span>
+              <span class="chip"><i class="bi bi-broadcast-pin"></i>Sensors &amp; Instrumentation</span>
+              <span class="chip"><i class="bi bi-gear-wide-connected"></i>Motor Control</span>
+              <span class="chip"><i class="bi bi-sliders"></i>Control Systems</span>
+            </div>
+          </div>
+
+          <div class="stack-row">
+            <span class="stack-label">Power &amp; Electrical</span>
+            <div class="chips">
+              <span class="chip"><i class="bi bi-plug"></i>Conduit Installation</span>
+              <span class="chip"><i class="bi bi-diagram-3"></i>Industrial Wiring</span>
+              <span class="chip"><i class="bi bi-sun"></i>Solar PV Design</span>
+              <span class="chip"><i class="bi bi-battery-charging"></i>Inverter Systems</span>
+              <span class="chip"><i class="bi bi-arrow-repeat"></i>Motor Rewinding</span>
+              <span class="chip"><i class="bi bi-rulers"></i>MEP Design</span>
+            </div>
+          </div>
+
+          <div class="stack-row">
+            <span class="stack-label">Security</span>
+            <div class="chips">
+              <span class="chip"><i class="bi bi-incognito"></i>Penetration Testing</span>
+              <span class="chip"><i class="bi bi-search"></i>Vulnerability Assessment</span>
+              <span class="chip"><i class="bi bi-lock"></i>System Hardening</span>
+              <span class="chip"><i class="bi bi-person-badge"></i>Access Control</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EXPERIENCE
+       ============================================================ -->
+  <section class="section" id="experience">
+    <div class="wrap">
+
+      <div class="sec-head">
+        <span class="sec-index">02 / Experience</span>
+        <h2 class="sec-title">Professional record</h2>
+        <p class="sec-sub">Five concurrent leadership and technical roles across engineering delivery, IT operations, construction services and technical education.</p>
+      </div>
+
+      <div class="xp">
+
+        <article class="xp-item">
+          <div>
+            <p class="xp-when">2021 — Present</p>
+            <p class="xp-org">E-light Technology.co</p>
+            <p class="xp-loc">Akwa Ibom State, Nigeria</p>
+          </div>
+          <div class="xp-main">
+            <h3 class="xp-role">Chief Executive Officer</h3>
+            <ul class="xp-list">
+              <li>Directed delivery of <strong>40+ solar, inverter and electrical installations</strong> across residential and commercial sites, with no call-back on 94% of completed jobs.</li>
+              <li>Standardised the <strong>pre-installation load audit and handover documentation</strong> process, reducing sizing errors and post-install support requests.</li>
+              <li>Built and supervise a delivery team of technicians and sub-contractors, with defined quality gates at each project milestone.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="xp-item">
+          <div>
+            <p class="xp-when">2022 — Present</p>
+            <p class="xp-org">Crystal Standards</p>
+            <p class="xp-loc">Nigeria</p>
+          </div>
+          <div class="xp-main">
+            <h3 class="xp-role">IT Director</h3>
+            <ul class="xp-list">
+              <li>Own the organisation's <strong>server, network, endpoint and access-control</strong> environment, including patch and configuration policy.</li>
+              <li>Introduced scheduled backup with <strong>quarterly recovery testing</strong>; reduced unplanned downtime from multi-day to under four hours per incident.</li>
+              <li>Led migration of core services to managed hosting with documented recovery objectives and escalation paths.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="xp-item">
+          <div>
+            <p class="xp-when">2022 — Present</p>
+            <p class="xp-org">Balisto Design and Construction</p>
+            <p class="xp-loc">Nigeria</p>
+          </div>
+          <div class="xp-main">
+            <h3 class="xp-role">Managing Director</h3>
+            <ul class="xp-list">
+              <li>Coordinate <strong>Mechanical, Electrical and Plumbing (MEP) design</strong> across concurrent building projects, from concept drawings to as-built records.</li>
+              <li>Enforced drawing-stage <strong>clash checks between services</strong>, cutting on-site rework on electrical and plumbing routes.</li>
+              <li>Manage procurement scheduling and contractor sequencing to hold agreed project dates.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="xp-item">
+          <div>
+            <p class="xp-when">2021 — Present</p>
+            <p class="xp-org">E-light Tech Academy</p>
+            <p class="xp-loc">Akwa Ibom State, Nigeria</p>
+          </div>
+          <div class="xp-main">
+            <h3 class="xp-role">Chief Executive Officer</h3>
+            <ul class="xp-list">
+              <li>Designed a vocational curriculum in <strong>electrical installation, electronics, computing and automation</strong>, structured around practical competency.</li>
+              <li>Trained <strong>150+ learners</strong> across practical cohorts, with competency-based assessment at the end of every module.</li>
+              <li>Introduced lab-based assessment and a learner portfolio requirement as the basis for certification.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="xp-item">
+          <div>
+            <p class="xp-when">2019 — Present</p>
+            <p class="xp-org">Admark's Electronics</p>
+            <p class="xp-loc">Cross River State, Nigeria</p>
+          </div>
+          <div class="xp-main">
+            <h3 class="xp-role">Manager — Technical Services</h3>
+            <ul class="xp-list">
+              <li>Perform <strong>component-level diagnostics and repair</strong> of televisions, laptops, mobile devices and power equipment.</li>
+              <li>Established a triage and quoting process that shortened turnaround and returned uneconomical units to clients faster.</li>
+              <li>Maintain spare-parts inventory and a repair-history log used for recurring fault analysis.</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SELECTED WORK
+       ============================================================ -->
+  <section class="section" id="work">
+    <div class="wrap">
+
+      <div class="sec-head">
+        <span class="sec-index">03 / Selected Work</span>
+        <h2 class="sec-title">Case studies</h2>
+        <p class="sec-sub">Three representative engagements, written as problem, action and measured result.</p>
+      </div>
+
+      <div class="cases">
+
+        <article class="case">
+          <div class="case-i"><span>Case 01</span><span>Power</span></div>
+          <h3>Hybrid solar &amp; backup system, residential</h3>
+          <dl>
+            <div class="case-block">
+              <dt>Problem</dt>
+              <dd>Six to eight hours of grid outage per day, with a generator running most evenings and fuel cost rising monthly.</dd>
+            </div>
+            <div class="case-block">
+              <dt>Action</dt>
+              <dd>Full load audit of every circuit, then a 6.6 kWp array with a 5 kVA hybrid inverter and 10 kWh storage, installed with labelled distribution and monitored battery state.</dd>
+            </div>
+            <div class="case-block">
+              <dt>Result</dt>
+              <dd>18–22 hours of autonomy per charge; generator runtime cut from roughly six hours to under one hour per day.</dd>
+            </div>
+          </dl>
+          <div class="case-foot">
+            <span class="chip">Load audit</span>
+            <span class="chip">PV sizing</span>
+            <span class="chip">Hybrid inverter</span>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="case-i"><span>Case 02</span><span>Automation</span></div>
+          <h3>Three-phase motor control panel rebuild</h3>
+          <dl>
+            <div class="case-block">
+              <dt>Problem</dt>
+              <dd>A workshop panel with undocumented circuits and no phase-failure protection; a single fault could stop the whole line for hours.</dd>
+            </div>
+            <div class="case-block">
+              <dt>Action</dt>
+              <dd>Rebuilt the panel with correctly rated contactors and overloads, added phase-failure protection, and produced a circuit schedule fixed inside the door.</dd>
+            </div>
+            <div class="case-block">
+              <dt>Result</dt>
+              <dd>Fault identification reduced from hours of tracing to minutes; unplanned stoppages down by approximately 70%.</dd>
+            </div>
+          </dl>
+          <div class="case-foot">
+            <span class="chip">Three-phase</span>
+            <span class="chip">Protection</span>
+            <span class="chip">Documentation</span>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="case-i"><span>Case 03</span><span>Systems</span></div>
+          <h3>Technical academy lab &amp; learning portal</h3>
+          <dl>
+            <div class="case-block">
+              <dt>Problem</dt>
+              <dd>Training depended on verbal instruction with no bench capacity, no record of learner progress and no reusable material.</dd>
+            </div>
+            <div class="case-block">
+              <dt>Action</dt>
+              <dd>Designed a twelve-bench electrical and electronics laboratory, and built a full-stack portal covering enrolment, course material and module assessment.</dd>
+            </div>
+            <div class="case-block">
+              <dt>Result</dt>
+              <dd>150+ learners onboarded, 87% module completion, and paper-based enrolment and grading removed entirely.</dd>
+            </div>
+          </dl>
+          <div class="case-foot">
+            <span class="chip">Lab design</span>
+            <span class="chip">Full-stack</span>
+            <span class="chip">Assessment</span>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CREDENTIALS
+       ============================================================ -->
+  <section class="section" id="credentials">
+    <div class="wrap">
+
+      <div class="sec-head">
+        <span class="sec-index">04 / Credentials</span>
+        <h2 class="sec-title">Qualifications &amp; training</h2>
+        <p class="sec-sub">Academic record and completed technical programmes.</p>
+      </div>
+
+      <div class="cred-grid">
+
+        <div>
+          <p class="mono" style="margin-bottom:18px;color:var(--ochre)">Education</p>
+          <div class="edu">
+
+            <div class="edu-item">
+              <span class="edu-yr">Present</span>
+              <div>
+                <h3>MSc — Artificial Intelligence &amp; Robotics</h3>
+                <p>Department of Mechatronics, Faculty of Engineering. Control systems, intelligent systems and robotic integration.</p>
+                <span class="tag">In progress</span>
+              </div>
+            </div>
+
+            <div class="edu-item">
+              <span class="edu-yr">2027</span>
+              <div>
+                <h3>BSc — Mathematics &amp; Computer Science</h3>
+                <p>National Open University of Nigeria (NOUN), Faculty of Science. Algorithms, systems analysis and computational mathematics.</p>
+                <span class="tag">In view</span>
+              </div>
+            </div>
+
+            <div class="edu-item">
+              <span class="edu-yr">2023</span>
+              <div>
+                <h3>Diploma — Electrical / Electronics Engineering</h3>
+                <p>Akanu Ibiam Federal Polytechnic, Unwana. Power systems, electronics, instrumentation and electrical installation practice.</p>
+                <span class="tag">Completed</span>
+              </div>
+            </div>
+
+            <div class="edu-item">
+              <span class="edu-yr">2020</span>
+              <div>
+                <h3>Senior Secondary Certificate Examination (SSCE)</h3>
+                <p>Community Technical College, Ikot Efanga Mkpa, Calabar.</p>
+              </div>
+            </div>
+
+            <div class="edu-item">
+              <span class="edu-yr">2012</span>
+              <div>
+                <h3>First School Leaving Certificate</h3>
+                <p>Christ the King Nursery and Primary School, Calabar South.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div>
+          <p class="mono" style="margin-bottom:18px;color:var(--ochre)">Certifications &amp; Training</p>
+          <div class="certs">
+
+            <div class="cert">
+              <i class="bi bi-patch-check-fill"></i>
+              <div>
+                <h4>Solar PV &amp; Inverter System Design</h4>
+                <p>Professional training — array sizing, battery bank design, hybrid inverter configuration and commissioning.</p>
+              </div>
+            </div>
+
+            <div class="cert">
+              <i class="bi bi-patch-check-fill"></i>
+              <div>
+                <h4>Industrial Automation &amp; PLC Fundamentals</h4>
+                <p>Technical training — ladder logic, motor control circuits, sensors and process sequencing.</p>
+              </div>
+            </div>
+
+            <div class="cert">
+              <i class="bi bi-patch-check-fill"></i>
+              <div>
+                <h4>Cybersecurity &amp; Ethical Hacking</h4>
+                <p>Practical programme — scoping, vulnerability assessment, exploitation reporting and remediation.</p>
+              </div>
+            </div>
+
+            <div class="cert">
+              <i class="bi bi-patch-check-fill"></i>
+              <div>
+                <h4>Electrical Installation &amp; Industrial Wiring</h4>
+                <p>Applied training — conduit systems, distribution boards, earthing, protection and testing.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <p class="mono" style="margin:32px 0 14px;color:var(--ochre)">Languages</p>
+          <div class="chips">
+            <span class="chip">English — Professional</span>
+            <span class="chip">Nigerian Pidgin — Native</span>
+            <span class="chip">Efik — Native</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIALS
+       ============================================================ -->
+  <section class="section" id="references">
+    <div class="wrap">
+
+      <div class="sec-head">
+        <span class="sec-index">05 / References</span>
+        <h2 class="sec-title">What clients and colleagues say</h2>
+        <p class="sec-sub">Three references from separate engagements — power systems, industrial automation and technical training.</p>
+      </div>
+
+      <div class="tst-grid">
+
+        <article class="tst">
+          <span class="tst-mark">★★★★★</span>
+          <blockquote>
+            He refused to quote until he had audited every circuit in the building. The system he specified has
+            carried us through two rainy seasons without a single failure, and our generator now runs for about
+            forty minutes a day instead of five hours.
+          </blockquote>
+          <div class="tst-who">
+            <span class="avatar">AN</span>
+            <div>
+              <h4>Adaeze Nwosu</h4>
+              <p>Facilities Manager · Residential Estate, Uyo</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="tst">
+          <span class="tst-mark">★★★★★</span>
+          <blockquote>
+            Our panel was a tangle of unlabelled wiring and every fault cost us a full shift. He rebuilt it,
+            documented every circuit, and trained two of our staff to read the schedule. Fault-finding is now a
+            matter of minutes, not hours.
+          </blockquote>
+          <div class="tst-who">
+            <span class="avatar">IS</span>
+            <div>
+              <h4>Ibrahim Suleiman</h4>
+              <p>Operations Lead · Manufacturing Workshop, Aba</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="tst">
+          <span class="tst-mark">★★★★★</span>
+          <blockquote>
+            He built our laboratory bench by bench and then the portal that tracks every learner. The curriculum
+            is practical and the assessment is honest — employers now ask us for graduates by name.
+          </blockquote>
+          <div class="tst-who">
+            <span class="avatar">GE</span>
+            <div>
+              <h4>Grace Etim</h4>
+              <p>Director · Vocational Training Institute, Calabar</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="contact">
+
+        <div>
+          <p class="mono">06 / Contact</p>
+          <h2>Available for systems, automation and power engineering engagements.</h2>
+          <p class="lede">
+            Send the scope, the site location and your timeline. You will get a written assessment with an
+            honest view on feasibility, cost and duration — including whether another specialist would serve
+            you better.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:26px">
+            <a href="mailto:jahnoudonde2021@gmail.com" class="btn btn-gold"><i class="bi bi-envelope"></i> Email Me</a>
+            <button type="button" class="btn btn-ghost" id="printCv2"
+                    style="color:#e9eef5;border-color:rgba(255,255,255,.22)">
+              <i class="bi bi-download"></i> Download CV
+            </button>
+          </div>
+        </div>
+
+        <div class="contact-links">
+
+          <a href="mailto:jahnoudonde2021@gmail.com" class="cl">
+            <i class="bi bi-envelope-fill"></i>
+            <span>
+              <small>Email</small>
+              <strong>jahnoudonde2021@gmail.com</strong>
+            </span>
+            <i class="bi bi-arrow-up-right go"></i>
+          </a>
+
+          <a href="tel:+2349014015217" class="cl">
+            <i class="bi bi-telephone-fill"></i>
+            <span>
+              <small>Phone</small>
+              <strong>+234 901 401 5217</strong>
+            </span>
+            <i class="bi bi-arrow-up-right go"></i>
+          </a>
+
+          <a href="https://wa.me/2349064710964" target="_blank" rel="noopener" class="cl">
+            <i class="bi bi-whatsapp"></i>
+            <span>
+              <small>WhatsApp</small>
+              <strong>Message directly</strong>
+            </span>
+            <i class="bi bi-arrow-up-right go"></i>
+          </a>
+
+          <a href="#" target="_blank" rel="noopener" class="cl">
+            <i class="bi bi-linkedin"></i>
+            <span>
+              <small>LinkedIn</small>
+              <strong>Professional profile</strong>
+            </span>
+            <i class="bi bi-arrow-up-right go"></i>
+          </a>
+
+          <a href="https://github.com/SundayJahnoUdonde" target="_blank" rel="noopener" class="cl">
+            <i class="bi bi-github"></i>
+            <span>
+              <small>GitHub</small>
+              <strong>Code &amp; projects</strong>
+            </span>
+            <i class="bi bi-arrow-up-right go"></i>
+          </a>
+
+          <div class="cl" style="cursor:default">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>
+              <small>Base</small>
+              <strong>Ikorodu LGA, Lagos State, Nigeria</strong>
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+
+      <div>
+        <a href="#overview" class="foot-brand">
+          <span class="brand-mark">S</span>
+          <span class="brand-text">
+            <strong>Sunday Jahno Ezekiel</strong>
+            <small>System Engineer</small>
+          </span>
+        </a>
+        <p class="foot-note">
+          Systems engineering across infrastructure, automation, power and software — delivered with
+          documentation, tested before handover, and supported after it.
+        </p>
+        <div class="socials">
+          <a href="#" class="soc" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="https://github.com/SundayJahnoUdonde" class="soc" aria-label="GitHub"><i class="bi bi-github"></i></a>
+          <a href="https://wa.me/2349064710964" class="soc" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          <a href="mailto:jahnoudonde2021@gmail.com" class="soc" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Portfolio</h4>
+        <ul class="foot-list">
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#expertise">Expertise</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#work">Selected Work</a></li>
+          <li><a href="#credentials">Credentials</a></li>
+          <li><a href="#references">References</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Capabilities</h4>
+        <ul class="foot-list">
+          <li><a href="#expertise">Systems &amp; Infrastructure</a></li>
+          <li><a href="#expertise">Automation &amp; Control</a></li>
+          <li><a href="#expertise">Power Systems</a></li>
+          <li><a href="#expertise">Software Engineering</a></li>
+          <li><a href="#expertise">Security &amp; Assurance</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Get in Touch</h4>
+        <ul class="foot-list">
+          <li><i class="bi bi-telephone"></i><a href="tel:+2349014015217">+234 901 401 5217</a></li>
+          <li><i class="bi bi-whatsapp"></i><a href="https://wa.me/2349064710964">WhatsApp</a></li>
+          <li><i class="bi bi-envelope"></i><a href="mailto:jahnoudonde2021@gmail.com">jahnoudonde2021@gmail.com</a></li>
+          <li><i class="bi bi-geo-alt"></i>Ikorodu LGA, Lagos State, Nigeria</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="foot-bottom">
+      <p>&copy; <span id="year">2026</span> Sunday Jahno Ezekiel. All rights reserved.</p>
+      <p>System Engineer — Portfolio</p>
+    </div>
+  </div>
+</footer>
+
+<button id="backTop" class="back-top" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+<script>
+(function () {
+  'use strict';
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  var DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  /* ---------- live clock ---------- */
+  var timeEl = document.getElementById('liveTime');
+  var dateEl = document.getElementById('liveDate');
+
+  function tick(){
+    var d = new Date();
+    var h = d.getHours(), ampm = h >= 12 ? 'PM' : 'AM', h12 = h % 12 || 12;
+    timeEl.textContent = pad(h12) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()) + ' ' + ampm;
+    dateEl.textContent = DAYS[d.getDay()] + ', ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* ---------- calendar ---------- */
+  var calWrap  = document.getElementById('calWrap');
+  var calBtn   = document.getElementById('calBtn');
+  var calPanel = document.getElementById('calPanel');
+  var calTitle = document.getElementById('calTitle');
+  var calDays  = document.getElementById('calDays');
+
+  var view = new Date(); view.setDate(1);
+  var pinned = false, closeTimer = null;
+
+  function renderCal(){
+    var y = view.getFullYear(), m = view.getMonth();
+    calTitle.textContent = MONTHS[m] + ' ' + y;
+
+    var firstDow = new Date(y, m, 1).getDay();
+    var daysIn   = new Date(y, m + 1, 0).getDate();
+    var prevIn   = new Date(y, m, 0).getDate();
+    var today    = new Date();
+    var html = '';
+
+    for (var i = 0; i < 42; i++){
+      var dayNum, cls = '', d;
+      if (i < firstDow){ dayNum = prevIn - firstDow + i + 1; cls = 'mute'; d = new Date(y, m - 1, dayNum); }
+      else if (i < firstDow + daysIn){ dayNum = i - firstDow + 1; d = new Date(y, m, dayNum); }
+      else { dayNum = i - firstDow - daysIn + 1; cls = 'mute'; d = new Date(y, m + 1, dayNum); }
+
+      if (d.toDateString() === today.toDateString()) cls += ' today';
+      var iso = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+      html += '<button type="button" class="' + cls.trim() + '" data-d="' + iso + '">' + dayNum + '</button>';
+    }
+    calDays.innerHTML = html;
+  }
+
+  function openCal(){ calPanel.classList.add('open'); calBtn.setAttribute('aria-expanded','true'); }
+  function closeCal(){ calPanel.classList.remove('open'); calBtn.setAttribute('aria-expanded','false'); }
+  function scheduleClose(){ clearTimeout(closeTimer); closeTimer = setTimeout(function(){ if(!pinned) closeCal(); }, 200); }
+
+  calWrap.addEventListener('mouseenter', function(){ clearTimeout(closeTimer); if(!pinned) openCal(); });
+  calWrap.addEventListener('mouseleave', scheduleClose);
+  calPanel.addEventListener('mouseenter', function(){ clearTimeout(closeTimer); });
+  calPanel.addEventListener('mouseleave', scheduleClose);
+
+  calBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    pinned = !pinned;
+    if (pinned) openCal(); else closeCal();
+  });
+  calPanel.addEventListener('click', function(e){ e.stopPropagation(); });
+  document.addEventListener('click', function(){ if (pinned){ pinned = false; closeCal(); } });
+
+  document.getElementById('calPrev').addEventListener('click', function(){ view.setMonth(view.getMonth() - 1); renderCal(); });
+  document.getElementById('calNext').addEventListener('click', function(){ view.setMonth(view.getMonth() + 1); renderCal(); });
+  document.getElementById('calToday').addEventListener('click', function(){ view = new Date(); view.setDate(1); renderCal(); });
+
+  calDays.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    calDays.querySelectorAll('button').forEach(function(x){ x.classList.remove('picked'); });
+    b.classList.add('picked');
+  });
+
+  renderCal();
+
+  /* ---------- mobile menu ---------- */
+  var menu   = document.getElementById('menu');
+  var burger = document.getElementById('burger');
+
+  function closeMenu(){
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+    burger.innerHTML = '<i class="bi bi-list"></i>';
+  }
+
+  burger.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.innerHTML = open ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-list"></i>';
+  });
+
+  document.addEventListener('click', function(e){
+    if (!menu.contains(e.target) && e.target !== burger) closeMenu();
+  });
+
+  /* ---------- header offset for anchor scrolling ---------- */
+  function headerOffset(){
+    var head = document.querySelector('.site-head');
+    return (head ? head.getBoundingClientRect().height : 102) + 18;
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href');
+      if (id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset();
+      window.scrollTo({ top: top, behavior: 'smooth' });
+      history.replaceState(null, '', id);
+      closeMenu();
+    });
+  });
+
+  /* ---------- scroll spy ---------- */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.menu a[data-nav]'));
+  var sections = navLinks.map(function (l) {
+    return document.getElementById(l.getAttribute('data-nav'));
+  }).filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var id = entry.target.id;
+        navLinks.forEach(function (l) {
+          l.classList.toggle('is-active', l.getAttribute('data-nav') === id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ---------- print / download CV ---------- */
+  function printCv(){
+    closeMenu();
+    window.print();
+  }
+  var p1 = document.getElementById('printCv');
+  var p2 = document.getElementById('printCv2');
+  if (p1) p1.addEventListener('click', printCv);
+  if (p2) p2.addEventListener('click', printCv);
+
+  /* ---------- back to top ---------- */
+  var backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', function(){
+    backTop.classList.toggle('on', window.scrollY > 520);
+  }, { passive: true });
+  backTop.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  /* ---------- escape ---------- */
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){ pinned = false; closeCal(); closeMenu(); }
+  });
+
+  /* ---------- init ---------- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>
